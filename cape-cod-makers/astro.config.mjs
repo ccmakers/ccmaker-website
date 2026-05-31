@@ -3,8 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://sullytech.github.io',
-  base: '/ccmaker-website',
+  site: 'https://capecodmakers.org',
   integrations: [
     tailwind({
       applyBaseStyles: false,
