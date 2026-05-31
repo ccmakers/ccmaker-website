@@ -17,7 +17,7 @@ export async function getMeetupEvents(): Promise<MeetupEvent[]> {
     const events = await ical.async.fromURL(ICAL_URL);
 
     return Object.values(events)
-      .filter((e): e is ical.VEvent => e.type === 'VEVENT')
+      .filter((e): e is ical.VEvent => e !== undefined && e.type === 'VEVENT')
       .map(e => ({
         uid: String(e.uid ?? ''),
         title: String(e.summary ?? 'Untitled Event'),
