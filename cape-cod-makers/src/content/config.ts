@@ -15,6 +15,19 @@ const eventsCollection = defineCollection({
   }),
 });
 
+const newsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    summary: z.string(),
+    link: z.string().optional(),
+    linkText: z.string().default('Read more'),
+    pinned: z.boolean().default(false),
+  }),
+});
+
 export const collections = {
   events: eventsCollection,
+  news: newsCollection,
 };

@@ -40,6 +40,28 @@ registrationUrl: "https://example.com/register"  # optional
 Full event description goes here in Markdown.
 ```
 
+### Adding a News Update
+
+The **Latest News** section on the home page shows the three most recent
+updates. Create a new `.md` file in `src/content/news/` (date in the
+filename, e.g. `2026-08-fall-classes.md`):
+
+```markdown
+---
+title: "Fall class registration is open"
+date: 2026-08-25
+summary: "One or two sentences shown on the card."
+link: "/events"            # optional — internal path or full https:// URL
+linkText: "See the schedule"  # optional — defaults to "Read more"
+pinned: false               # optional — pinned items sort above by date
+---
+
+Body text is optional and not shown on the home page.
+```
+
+Updates drop off the home page automatically once three newer ones exist —
+delete old files when you want to tidy up.
+
 ### Updating Content
 
 All pages with placeholder content are marked with `<!-- TODO -->` comments. Search the `src/` directory for `TODO` to find all items that need real content.
@@ -83,7 +105,7 @@ The contact form uses [Formspree](https://formspree.io):
 
 ```
 src/
-├── content/       # Markdown content (events)
+├── content/       # Markdown content (events, news)
 ├── components/    # Reusable Astro components
 ├── layouts/       # Page layout templates
 ├── pages/         # One file per URL route

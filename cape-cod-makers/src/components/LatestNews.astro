@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import { siteBase as base } from '../utils/siteBase';
+
+// News dates are date-only in frontmatter (parsed as UTC midnight), so format
+// in UTC to avoid the day slipping backward in Eastern time.
+const formatNewsDate = (date: Date) =>
+  date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+
+interface Props {
+  limit?: number;
+}
+
+const { limit = 3 } = Astro.props;
+
+const items = (await getCollection('news'))
+  .sort((a, b) => {
+    if (a.data.pinned !== b.data.pinned) return a.data.pinned ? -1 : 1;
+    return b.data.date.getTime() - a.data.date.getTime();
+  })
+  .slice(0, limit);
+
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+const resolve = (href: string) =>
+  isExternal(href) || href.startsWith('/') ? href : `${base}${href}`;
+---
+
+{items.length > 0 && (
+  <section class="bg-gray-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center mb-12">Latest News</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {items.map(item => (
+          <article class="bg-white border border-gray-200 rounded-xl p-6 flex flex-col">
+            <time
+              class="text-ccm-blue text-sm font-semibold"
+              datetime={item.data.date.toISOString()}
+            >
+              {formatNewsDate(item.data.date)}
+            </time>
+            <h3 class="text-xl font-bold mt-2 mb-2">{item.data.title}</h3>
+            <p class="text-gray-600 text-sm flex-1">{item.data.summary}</p>
+            {item.data.link && (
+              <a
+                href={resolve(item.data.link)}
+                class="text-ccm-blue text-sm font-medium hover:underline flex items-center gap-1 mt-4"
+                {...isExternal(item.data.link)
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {}}
+              >
+                {item.data.linkText} →
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
