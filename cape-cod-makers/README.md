@@ -40,23 +40,6 @@ registrationUrl: "https://example.com/register"  # optional
 Full event description goes here in Markdown.
 ```
 
-### Adding a Blog Post
-
-Create a new `.md` file in `src/content/blog/`:
-
-```markdown
----
-title: "Post Title"
-pubDate: 2025-06-15
-description: "A short description."
-author: "Cape Cod Makers"
-tags: ["announcement"]
-draft: false
----
-
-Post content in Markdown.
-```
-
 ### Updating Content
 
 All pages with placeholder content are marked with `<!-- TODO -->` comments. Search the `src/` directory for `TODO` to find all items that need real content.
@@ -100,7 +83,7 @@ The contact form uses [Formspree](https://formspree.io):
 
 ```
 src/
-├── content/       # Markdown content (events, blog posts)
+├── content/       # Markdown content (events)
 ├── components/    # Reusable Astro components
 ├── layouts/       # Page layout templates
 ├── pages/         # One file per URL route

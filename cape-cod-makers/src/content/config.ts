@@ -15,21 +15,6 @@ const eventsCollection = defineCollection({
   }),
 });
 
-const blogCollection = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    pubDate: z.date(),
-    updatedDate: z.date().optional(),
-    description: z.string(),
-    author: z.string().default('Cape Cod Makers'),
-    image: z.string().optional(),
-    tags: z.array(z.string()).default([]),
-    draft: z.boolean().default(false),
-  }),
-});
-
 export const collections = {
   events: eventsCollection,
-  blog: blogCollection,
 };

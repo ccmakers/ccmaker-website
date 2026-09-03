@@ -1,5 +1,5 @@
 /**
- * Format a Date object for display in event listings and blog posts.
+ * Format a Date object for display in event listings.
  * Always uses Eastern Time (America/New_York) since all events are on Cape Cod.
  */
 export function formatDate(date: Date, includeTime = false): string {
